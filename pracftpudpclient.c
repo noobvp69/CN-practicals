@@ -9,7 +9,7 @@
 #define BUF_SIZE 2000
 
 int main() {
-    int sockdes, bytesReceived;
+    int sockdes, b;
     FILE *fd;
     char s[100] = "";
     char s2[25] = "";
