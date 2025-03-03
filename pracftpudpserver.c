@@ -9,7 +9,7 @@
 #define BUF_SIZE 2000
 
 int main() {
-    int sockdes, fd, bytesRead;
+    int sockdes, fd, b;
     char fname[25] = "";
     char fcontent[BUF_SIZE] = "";
     struct sockaddr_in server, client;
@@ -51,9 +51,9 @@ int main() {
             printf("File found, starting to send data.\n");
 
             // Send file content in chunks
-            while ((bytesRead = read(fd, fcontent, sizeof(fcontent))) > 0) {
-                printf("Sending %d bytes...\n", bytesRead);
-                sendto(sockdes, fcontent, bytesRead, 0, (struct sockaddr *)&client, client_len);
+            while ((b = read(fd, fcontent, sizeof(fcontent))) > 0) {
+                printf("Sending %d bytes...\n", b);
+                sendto(sockdes, fcontent, b, 0, (struct sockaddr *)&client, client_len);
             }
             printf("File sent successfully.\n");
 
