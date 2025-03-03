@@ -28,9 +28,9 @@ int main() {
     server.sin_addr.s_addr = inet_addr("127.0.0.1");  // Replace with the server's IP address
     server.sin_port = htons(PORT);                     // Server port
 
-    printf("\nEnter the file name to request from the server: ");
+    printf("\nEnter the file name: ");
     scanf("%s", s);
-    printf("\nEnter the new file name to save the received file: ");
+    printf("\nEnter the new file name: ");
     scanf("%s", s2);
 
     // Send the requested file name to the server
@@ -46,15 +46,15 @@ int main() {
     }
 
     // Receive file content from server
-    while ((bytesReceived = recvfrom(sockdes, s1, sizeof(s1), 0, NULL, NULL)) > 0) {
+    while ((b = recvfrom(sockdes, s1, sizeof(s1), 0, NULL, NULL)) > 0) {
         // Check if the end-of-file signal is received
         if (strncmp(s1, "END_OF_FILE", 11) == 0) {
             printf("\nEnd of file transfer\n");
             break;
         }
 
-        printf("Received %d bytes\n", bytesReceived);  // Debugging received bytes
-        fwrite(s1, 1, bytesReceived, fd);  // Write the received data into the file
+        printf("Received %d bytes\n", b);  // Debugging received bytes
+        fwrite(s1, 1, b, fd);  // Write the received data into the file
     }
 
     printf("\nFile received successfully\n");
